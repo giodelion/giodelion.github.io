@@ -1,29 +1,101 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <title>Giodelion</title>
-   </head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-body {
-  background-image: url('backdrop.png');
-}
-</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Giodelion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Global styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('backdrop.png');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      background-repeat: no-repeat;
+    }
 
-   <body  >
+    h1 {
+      font-size: 3em;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    }
 
-      <h1 style="text-align:center;font-family:Tahoma;">🔥Giodelion🔥</h1>
-	<p style="text-align:center;"><img src="giodelion.png" alt="giodelionpic"></p>
-      <p style="text-align:center;font-family:Impact;">Giodelion is a Filipino Minecraft TikToker, Youtuber, and Facebook Livestreamer.</p>
+    img.main-img {
+      max-width: 200px;
+      width: 80%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+    }
 
-<p style="text-align:center">
-<a href="https://www.facebook.com/gaming/giodelion1"><img src="fb.png" alt="Facebook"></a>
-<a href="https://www.youtube.com/giodelion"><img src="yt.png" alt="YouTube"></a>
-<a href="https://www.tiktok.com/@giodelion?"><img src="tt.png" alt="TikTok"></a>
-<a href="https://discord.gg/K9dRNdF43C"><img src="discord.png" alt="Discord"></a>
-<a href="https://www.instagram.com/giodelion/"><img src="insta.png" alt="Instagram"></a>
-<a href="https://twitter.com/giodelion"><img src="twitter.png" alt="Twitter"></a>
-</p>
+    p.description {
+      font-family: Impact, Charcoal, sans-serif;
+      font-size: 1.2em;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
 
-   </body>
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .social-icons a img {
+      width: 50px;
+      height: 50px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+    }
+
+    .social-icons a img:hover {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2em;
+      }
+      .social-icons a img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔥Giodelion🔥</h1>
+
+  <img src="giodelion.png" alt="Giodelion Picture" class="main-img">
+
+  <p class="description">
+    Giodelion is a Filipino Minecraft TikToker, YouTuber, and Facebook Livestreamer.
+  </p>
+
+  <div class="social-icons">
+    <a href="https://www.facebook.com/gaming/giodelion1"><img src="fb.png" alt="Facebook"></a>
+    <a href="https://www.youtube.com/giodelion"><img src="yt.png" alt="YouTube"></a>
+    <a href="https://www.tiktok.com/@giodelion?"><img src="tt.png" alt="TikTok"></a>
+    <a href="https://discord.gg/K9dRNdF43C"><img src="discord.png" alt="Discord"></a>
+    <a href="https://www.instagram.com/giodelion/"><img src="insta.png" alt="Instagram"></a>
+    <a href="https://twitter.com/giodelion"><img src="twitter.png" alt="Twitter"></a>
+  </div>
+
+</body>
 </html>
