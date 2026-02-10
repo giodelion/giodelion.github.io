@@ -6,108 +6,250 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* RESET */
-* {
-  box-sizing: border-box;
+:root {
+  --neon: #00eaff;
+  --neon-pink: #ff2dfc;
+  --bg-dark: rgba(0,0,0,0.65);
 }
 
-/* BODY BACKGROUND */
+* { box-sizing: border-box; }
+
+/* BACKGROUND + PARALLAX */
 body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  overflow: hidden;
 
-  /* IMAGE AS BACKGROUND */
   background-image:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
     url("giodelionaibanner.png");
-  background-size: cover;
+  background-size: 120%;
   background-position: center;
   background-repeat: no-repeat;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  color: #ffffff;
+
+  animation: bgPan 28s ease-in-out infinite;
 }
 
-/* MAIN CONTENT WRAPPER */
-.content {
+@keyframes bgPan {
+  0% { background-position: 50% 50%; }
+  50% { background-position: 55% 45%; }
+  100% { background-position: 50% 50%; }
+}
+
+/* PARTICLE CANVAS */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* INTRO REVEAL */
+.intro {
+  animation: introReveal 1.4s ease forwards;
+  opacity: 0;
+  transform: translateY(20px) scale(.98);
+}
+
+@keyframes introReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* MAIN CARD */
+.card {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 420px;
-  padding: 20px;
+  padding: 26px;
+  text-align: center;
+  background: var(--bg-dark);
+  border-radius: 18px;
+  border: 1px solid rgba(0,234,255,.35);
+  box-shadow:
+    0 0 25px rgba(0,234,255,.35),
+    inset 0 0 25px rgba(0,234,255,.15);
+  backdrop-filter: blur(14px);
+}
+
+/* SCANLINE EFFECT */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.03) 0px,
+    rgba(255,255,255,.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  border-radius: 18px;
 }
 
 /* TITLE */
 h1 {
+  margin: 0 0 12px;
   font-size: clamp(2.2rem, 5vw, 3rem);
-  margin-bottom: 16px;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.6);
+  color: var(--neon);
+  text-shadow:
+    0 0 10px var(--neon),
+    0 0 22px var(--neon);
 }
 
-/* DESCRIPTION */
-.description {
-  font-size: clamp(1rem, 3.5vw, 1.2rem);
-  margin-bottom: 28px;
-  background: rgba(255,255,255,0.15);
-  padding: 14px 20px;
-  border-radius: 14px;
-  backdrop-filter: blur(10px);
+/* BIO */
+p {
+  font-size: clamp(1rem, 3.5vw, 1.15rem);
+  margin-bottom: 26px;
+  color: #e8fbff;
 }
 
-/* SOCIAL ICONS – ALIGNED WITH LOGO CENTER */
-.social-icons {
+/* LINK-IN-BIO BUTTONS */
+.links {
   display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  background: rgba(0,0,0,.45);
+  border: 1px solid rgba(0,234,255,.4);
+  box-shadow: 0 0 16px rgba(0,234,255,.35);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
 
-/* ICON STYLE */
-.social-icons a img {
-  width: 52px;
-  height: 52px;
+.link-btn img {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
 }
 
-.social-icons a img:hover {
-  transform: scale(1.15);
-  box-shadow: 0 10px 20px rgba(0,123,255,0.6);
+/* GLOW + HOVER */
+.link-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 22px var(--neon),
+    0 0 40px rgba(0,234,255,.8);
 }
 
-/* SMALL SCREENS */
+/* MOBILE TUNING */
 @media (max-width: 600px) {
-  .social-icons a img {
-    width: 44px;
-    height: 44px;
-  }
+  body { background-size: 140%; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="content">
-  <h1>🔥 Giodelion 🔥</h1>
+<canvas id="particles"></canvas>
 
-  <p class="description">
-    Giodelion is a Filipino content creator known for high-quality gaming videos
-    and live streams across YouTube, TikTok, and Facebook.
-  </p>
+<div class="card intro">
+  <h1>GIOD ELION</h1>
+  <p>Filipino gaming creator streaming epic moments on every platform.</p>
 
-  <div class="social-icons">
-    <a href="https://www.facebook.com/giodelion1"><img src="fb.png" alt="Facebook"></a>
-    <a href="https://www.youtube.com/giodelion"><img src="yt.png" alt="YouTube"></a>
-    <a href="https://www.tiktok.com/@giodelion"><img src="tt.png" alt="TikTok"></a>
-    <a href="https://discord.gg/K9dRNdF43C"><img src="discord.png" alt="Discord"></a>
-    <a href="https://www.instagram.com/giodelion/"><img src="insta.png" alt="Instagram"></a>
-    <a href="https://twitter.com/giodelion"><img src="twitter.png" alt="Twitter"></a>
+  <div class="links">
+    <a class="link-btn" href="https://www.facebook.com/giodelion1">
+      <img src="fb.png"> Facebook
+    </a>
+    <a class="link-btn" href="https://www.youtube.com/giodelion">
+      <img src="yt.png"> YouTube
+    </a>
+    <a class="link-btn" href="https://www.tiktok.com/@giodelion">
+      <img src="tt.png"> TikTok
+    </a>
+    <a class="link-btn" href="https://discord.gg/K9dRNdF43C">
+      <img src="discord.png"> Discord
+    </a>
+    <a class="link-btn" href="https://www.instagram.com/giodelion/">
+      <img src="insta.png"> Instagram
+    </a>
+    <a class="link-btn" href="https://twitter.com/giodelion">
+      <img src="twitter.png"> Twitter
+    </a>
   </div>
 </div>
 
+<script>
+/* 🔊 SOUND ON HOVER (Web Audio) */
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioCtx();
+
+function playHoverSound() {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = "sine";
+  osc.frequency.value = 880;
+  gain.gain.value = 0.04;
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.08);
+}
+
+document.querySelectorAll(".link-btn").forEach(btn => {
+  btn.addEventListener("mouseenter", playHoverSound);
+});
+
+/* 🖱️ DESKTOP PARALLAX */
+document.addEventListener("mousemove", e => {
+  const x = (e.clientX / innerWidth - .5) * 8;
+  const y = (e.clientY / innerHeight - .5) * 8;
+  document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+});
+
+/* ✨ PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let w, h, particles;
+
+function resize() {
+  w = canvas.width = innerWidth;
+  h = canvas.height = innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+particles = Array.from({ length: 70 }, () => ({
+  x: Math.random() * w,
+  y: Math.random() * h,
+  r: Math.random() * 2 + 1,
+  vx: (Math.random() - .5) * .4,
+  vy: (Math.random() - .5) * .4
+}));
+
+function draw() {
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = "rgba(0,234,255,.8)";
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > w) p.vx *= -1;
+    if (p.y < 0 || p.y > h) p.vy *= -1;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
 </body>
 </html>
-
